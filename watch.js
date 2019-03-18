@@ -4,14 +4,12 @@ process.env['NTBA_FIX_319'] = 1;
 
 var TelegramBot = require('node-telegram-bot-api');
 
-var token = 'PUT_YOUR_BOT_TOKEN_HERE';
-group_chat_id = -1001211079926; // Change it
+var token = '596429985:AAEdPPYVdCNIDHFchx_NrSIdAhBxcyV9Nk0';
 
 var bot = new TelegramBot(token, {polling: true});
 
 function checkSpam(text) {
-  if(text.match(/t(elegram)?\.me\/[0-9a-zA-z]+/u) || text.match(/@(\s*)[0-9a-zA-z]{5,}/u) || text.match(/(?<=\s|^)(کیر.*?|ارگاسم.*?|پورن.*?|برهن.*|تخمی|جق|جلق|جنده|جندگی|باکره|چوچول|حشری|حشرم|حشرش|داف|دودول|سکس.*?|شهوت.*?|شونبول|شومبول|ممه|پستان|پستون|کص.*?|کسکش|لاپا|لاپایی|لاپات|لاپاش|لاپام|هرزه|فیلم سوپر|کاندوم|موبر|واجبین|وازلیناستمنا.*?|کون.*?|استشها.*?|الکسیس|جانی سینز|عمو جانی)(?=\s|$)/u)) return true;
-  return false;
+  return /(?:t(elegram)?\.me\/[0-9a-zA-z]{5,}|\/\w+\.apk|(^(?!\/)@((\s*)[0-9a-zA-z]{5,})$)|(?<=\s|^)(کیر.*?|ارگاسم.*?|پورن.*?|برهن.*|تخمی|جق|جلق|جنده|جندگی|باکره|چوچول|حشری|حشرم|حشرش|داف|دودول|سکس.*?|شهوت.*?|شونبول|شومبول|ممه|پستان|پستون|کص.*?|کسکش|لاپا|لاپایی|لاپات|لاپاش|لاپام|هرزه|فیلم سوپر|کاندوم|موبر|واجبین|وازلیناستمنا.*?|کون.*?|استشها.*?|الکسیس|جانی سینز|عمو جانی)(?=\s|$))/.test(text);
 }
 
 bot.on('message', (message) => {
@@ -41,7 +39,7 @@ bot.on('message', (message) => {
         }
       });
     }
-    else if(chat_id != group_chat_id) {
+    else if(chat_id != -1001211079926) {
       if(typeof message.animation !== 'undefined') {
         bot.getChatMember(chat_id, user_id).then(function(chatMember) {
           if(chatMember.status != 'creator' && chatMember.status != 'administrator') {
@@ -210,7 +208,7 @@ bot.on('sticker', (message) => {
     var chat_id = message.chat.id;
     var user_id = message.from.id;
     var message_id = message.message_id;
-    if(chat_id != group_chat_id) {
+    if(chat_id != -1001211079926) {
       bot.getChatMember(chat_id, user_id).then(function(chatMember) {
         if(chatMember.status != 'creator' && chatMember.status != 'administrator') {
           bot.deleteMessage(chat_id, message_id);
@@ -228,7 +226,7 @@ bot.on('new_chat_members', (message) => {
     bot.getChatMember(chat_id, user_id).then(function(chatMember) {
       if(chatMember.status != 'creator' && chatMember.status != 'administrator') {
         message.new_chat_members.forEach(function(user) {
-          if(user.is_bot == true) {
+          if(user.is_bot == true || user.first_name.replace('ي', 'ی').includes('بیوگرافیمو')) {
             bot.kickChatMember(chat_id, user.id);
             bot.kickChatMember(chat_id, user_id);
           }
