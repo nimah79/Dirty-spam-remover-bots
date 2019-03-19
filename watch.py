@@ -1,9 +1,9 @@
 from telethon import TelegramClient, events, sync, functions, types
 
 api_id = 132654 # Change it
-api_hash = 'a91b87d20a000002bfc366b35ea121ae' # Change it
+api_hash = 'XXXX' # Change it
 
-bot = TelegramClient('watch.session', 181697, 'a91b87d20a2ab8f2bfc366b35ea121ae')
+bot = TelegramClient('watch.session', 1324, 'XXXX')
 
 @bot.on(events.NewMessage)
 async def handler(update):
