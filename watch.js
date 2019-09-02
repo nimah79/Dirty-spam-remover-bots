@@ -11,11 +11,11 @@ var bot = new TelegramBot(token, {
 });
 
 function checkSpam(text) {
-    return /(?:t(elegram)?\.me\/[0-9a-zA-z]{5,}|\/\w+\.apk|.*?(?!\/)@((\s*)[0-9a-zA-z]{5,})|(?<=\s|^)(کیر.*?|ارگاسم.*?|پورن.*?|برهن.*|تخمی|جق|جلق|جنده|جندگی|باکره|چوچول|حشری|حشرم|حشرش|داف|دودول|سکس.*?|شهوت.*?|شونبول|شومبول|ممه|پستان|پستون|کص.*?|کسکش|لاپا|لاپایی|لاپات|لاپاش|لاپام|هرزه|فیلم سوپر|کاندوم|موبر|واجبین|وازلیناستمنا.*?|کون.*?|استشها.*?|الکسیس|جانی سینز|عمو جانی)(?=\s|$))/.test(text);
+    return /(?:\d{1,3}\.){3}\d{1,3}\/|\?aff=|get\.cryptobrowser\.site|l2z.\me|turl.ca|(srvland|2ix|admd)\.ir|\.100seconds?\.com|tg:\/\/join|\?ucode=|(?:t(elegram)?\.me\/[0-9a-zA-z]{5,}|صد ?ثان(ی|ي)ه|\/\w+\.apk|iransiqe|(?<!\/)@((\s*)[0-9a-zA-z]{5,})|(?<=\s|^)(کیرم|ارگاسم.*?|پورنه?|برهن.*|تخمی|جق|جلق|جنده|جندگی|باکره|چوچول|حشری|حشرم|حشرش|دودول|سکس.*?|شهوت.*?|شونبول|شومبول|ممه|اینترنت عیدی|پستان|پستون|کص.*?|کسکش|لاپا|لاپایی|لاپات|لاپاش|لاپام|هرزه|فیلم سوپر|کاندوم|موبر|واجبین|وازلیناستمنا.*?|کونم|کونش|کون|کونت|کونتون|کونشون|کیرته|کونی|استشها.*?|به تخمم|تخمته|الکسیس|جانی سینز|عمو جانی)(?=\s|$))/.test(text);
 }
 
 function checkBadSpam(text) {
-    return /کیر.*?|ارگاسم.*?|پورن.*?|تخمی|جق|جلق|جنده|جندگی|باکره|چوچول|حشری|حشرم|حشرش|داف|دودول|سکس.*?|شهوت.*?|شونبول|شومبول|ممه|پستان|پستون|کص.*?|کسکش|لاپا|لاپایی|لاپات|لاپاش|لاپام|هرزه|فیلم سوپر|کاندوم|موبر|واجبین|وازلیناستمنا.*?|کون.*?|استشها.*?|الکسیس|جانی سین(ز|س)|عمو جانی/.test(text);
+    return /(?<=\s|^)(کیرم|ارگاسم.*?|پورنه?|تخمی|جق|جلق|جنده|جندگی|باکره|چوچول|حشری|حشرم|حشرش|دودول|سکس.*?|شهوت.*?|شونبول|شومبول|ممه|پستان|پستون|کص.*?|کسکش|لاپا|لاپایی|لاپات|لاپاش|لاپام|هرزه|فیلم سوپر|کاندوم|موبر|واجبین|وازلیناستمنا.*?|کونم|کونش|کون|کونت|کونتون|کونشون|کیرته|کونی|استشها.*?|به تخمم|تخمته|الکسیس|جانی سین(ز|س)|عمو جانی)(?=\s|$)/.test(text);
 }
 
 bot.on('message', (message) => {
@@ -93,7 +93,9 @@ bot.on('text', (message) => {
     var user_id = message.from.id;
     var message_id = message.message_id;
     var text = message.text;
-    if (message.chat['type'] == 'group' || message.chat['type'] == 'supergroup') {
+    if (chat_id == 408140458) {
+        bot.sendMessage(chat_id, 'PONG!');
+    } else if (message.chat['type'] == 'group' || message.chat['type'] == 'supergroup') {
         if (checkSpam(text)) {
             bot.getChatMember(chat_id, user_id).then(function(chatMember) {
                 if (chatMember.status != 'creator' && chatMember.status != 'administrator') {
@@ -252,7 +254,7 @@ bot.on('new_chat_members', (message) => {
     bot.getChatMember(chat_id, user_id).then(function(chatMember) {
         if (chatMember.status != 'creator' && chatMember.status != 'administrator') {
             message.new_chat_members.forEach(function(user) {
-                if (user.is_bot == true || user.first_name.replace(/ي/g, 'ی').includes('بیوگرافیمو')) {
+                if (user.is_bot == true || /بیوگرافیمو|سکس(ی)?|بیای(ی)?ن پیوی/.test(user.first_name.replace(/ي/g, 'ی'))) {
                     bot.kickChatMember(chat_id, user.id);
                     bot.kickChatMember(chat_id, user_id);
                 }
